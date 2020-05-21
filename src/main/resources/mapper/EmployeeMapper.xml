@@ -1,9 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.felord.mybatis.mapper.EmployeeMapper">
-    <resultMap id="BaseMapper" type="cn.felord.mybatis.entity.Employee">
+    <!-- getter setter 注入    -->
+    <resultMap id="EmployeeMap" type="cn.felord.mybatis.entity.Employee">
         <id column="employee_id" property="employeeId"/>
-        <id column="name" property="name"/>
-        <id column="job_number" property="jobNumber"/>
+        <result column="employee_name" property="employeeName"/>
+        <result column="employee_type" property="employeeType"/>
     </resultMap>
+    <!-- 构造注入 必须有带参构造-->
+    <resultMap id="EmployeeConstructorMap" type="cn.felord.mybatis.entity.Employee">
+        <constructor>
+            <idArg column="employee_id" javaType="String" name="employeeId"/>
+            <!-- 你可以不按参数列表顺序添加-->
+            <arg column="employee_type" javaType="Integer" name="employeeType"/>
+            <arg column="employee_name" javaType="String" name="employeeName"/>
+        </constructor>
+    </resultMap>
+
+    <resultMap id="RegularEmployeeMap" extends="EmployeeMap" type="cn.felord.mybatis.entity.RegularEmployee">
+        <result column="level" property="level"/>
+        <result column="job_number" property="jobNumber"/>
+        <association property="department" javaType="cn.felord.mybatis.entity.Department">
+            <id column="department_id" property="departmentId"/>
+            <result column="department_name" property="departmentName"/>
+            <result column="department_level" property="departmentLevel"/>
+        </association>
+    </resultMap>
+    <!--    getter setter -->
+    <select id="findById" resultMap="EmployeeMap">
+        select employee_id, employee_name, job_number, department_id, company_no, level, employee_type
+        from employee
+        where employee_id = #{employeeId}
+    </select>
+    <!--    constructor-->
+    <select id="constructorById" resultMap="EmployeeConstructorMap">
+        select employee_id, employee_name, job_number, department_id, company_no, level, employee_type
+        from employee
+        where employee_id = #{employeeId}
+    </select>
+    <select id="findRegularById" resultMap="RegularEmployeeMap">
+      select * from employee a inner join  department b on a.department_id = b.department_id where a.employee_id = #{employeeId}
+    </select>
+
+
 </mapper>

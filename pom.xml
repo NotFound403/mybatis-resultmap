@@ -11,7 +11,7 @@
     <groupId>cn.felord</groupId>
     <artifactId>mybatis-resultmap</artifactId>
     <version>1.0.0</version>
-    <name>mybatis-resultmap</name>
+    <employeeName>mybatis-resultmap</employeeName>
     <description>Demo project for Spring Boot</description>
 
     <properties>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.felord.mybatis.mapper.DepartmentMapper">
+
+    <resultMap id="DepartmentMap" type="cn.felord.mybatis.entity.Department">
+        <id column="department_id" property="departmentId"/>
+        <result column="" property="departmentName"/>
+        <result column="department_level" property="departmentLevel"/>
+    </resultMap>
+
+    <resultMap id="DepartmentAndEmployeeListMap" extends="DepartmentMap" type="cn.felord.mybatis.entity.DepartmentAndEmployeeList">
+        <collection property="employees" ofType="cn.felord.mybatis.entity.RegularEmployee">
+            <id column="" property="employeeId"/>
+            <result column="employeeName" property="employeeName"/>
+            <result column="level" property="level"/>
+            <result column="jobNumber" property="jobNumber"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="DepartmentAndTypeEmployeesMap" extends="DepartmentMap" type="cn.felord.mybatis.entity.DepartmentAndTypeEmployees">
+       <discriminator javaType="int" column="employee_type">
+           <case value="1" resultType="cn.felord.mybatis.entity.RegularEmployee"/>
+       </discriminator>
+    </resultMap>
+
+
+</mapper>

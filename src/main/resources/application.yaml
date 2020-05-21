@@ -5,9 +5,9 @@ spring:
     # h2 内存数据库 内存模式连接配置 库名: spring_security  mysql模式
     url: jdbc:h2:mem:mybatis;MODE=MySQL;DATABASE_TO_LOWER=TRUE
     # 初始化数据表 DDL
-#    schema: classpath:sql/ddl.sql
+    schema: classpath:sql/ddl.sql
     #  初始化数据 DML
-#    data: classpath:sql/dml.sql
+    data: classpath:sql/dml.sql
   h2:
     #    开启console 访问 默认false
     console:
