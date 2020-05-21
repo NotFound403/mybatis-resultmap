@@ -13,7 +13,7 @@ public class TemporaryEmployee extends Employee {
     public String toString() {
         return "TemporaryEmployee{" +
                 "companyNo=" + companyNo +
-                '}';
+                "} " + super.toString();
     }
 
     public Integer getCompanyNo() {

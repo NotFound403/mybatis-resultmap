@@ -18,7 +18,7 @@ public class DepartmentAndEmployeeList extends Department {
     public String toString() {
         return "DepartmentAndEmployeeList{" +
                 "employees=" + employees +
-                '}';
+                "} " + super.toString();
     }
 
     public void setEmployees(List<RegularEmployee> employees) {

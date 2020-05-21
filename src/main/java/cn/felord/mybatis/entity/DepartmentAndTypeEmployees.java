@@ -20,7 +20,7 @@ public class DepartmentAndTypeEmployees extends Department {
         return "DepartmentAndTypeEmployees{" +
                 "regularEmployees=" + regularEmployees +
                 ", temporaryEmployees=" + temporaryEmployees +
-                '}';
+                "} " + super.toString();
     }
 
     public void setRegularEmployees(List<RegularEmployee> regularEmployees) {
