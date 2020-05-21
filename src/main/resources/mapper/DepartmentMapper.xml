@@ -4,24 +4,32 @@
 
     <resultMap id="DepartmentMap" type="cn.felord.mybatis.entity.Department">
         <id column="department_id" property="departmentId"/>
-        <result column="" property="departmentName"/>
+        <result column="department_name" property="departmentName"/>
         <result column="department_level" property="departmentLevel"/>
     </resultMap>
 
-    <resultMap id="DepartmentAndEmployeeListMap" extends="DepartmentMap" type="cn.felord.mybatis.entity.DepartmentAndEmployeeList">
+    <resultMap id="DepartmentAndEmployeeListMap" extends="DepartmentMap"
+               type="cn.felord.mybatis.entity.DepartmentAndEmployeeList">
         <collection property="employees" ofType="cn.felord.mybatis.entity.RegularEmployee">
-            <id column="" property="employeeId"/>
-            <result column="employeeName" property="employeeName"/>
+            <id column="employee_id" property="employeeId"/>
+            <result column="employee_name" property="employeeName"/>
             <result column="level" property="level"/>
-            <result column="jobNumber" property="jobNumber"/>
+            <result column="job_number" property="jobNumber"/>
         </collection>
     </resultMap>
 
-    <resultMap id="DepartmentAndTypeEmployeesMap" extends="DepartmentMap" type="cn.felord.mybatis.entity.DepartmentAndTypeEmployees">
-       <discriminator javaType="int" column="employee_type">
-           <case value="1" resultType="cn.felord.mybatis.entity.RegularEmployee"/>
-       </discriminator>
+    <resultMap id="DepartmentAndTypeEmployeesMap" extends="DepartmentMap"
+               type="cn.felord.mybatis.entity.DepartmentAndTypeEmployees">
+        <discriminator javaType="int" column="employee_type">
+            <case value="1" resultType="cn.felord.mybatis.entity.RegularEmployee"/>
+        </discriminator>
     </resultMap>
+    <select id="findById" resultMap="DepartmentAndEmployeeListMap">
+        select *
+        from department a
+                 left join employee b on a.department_id = b.department_id
+        where a.department_id = #{departmentId}
+    </select>
 
 
 </mapper>
