@@ -13,6 +13,7 @@
         <collection property="employees" ofType="cn.felord.mybatis.entity.RegularEmployee">
             <id column="employee_id" property="employeeId"/>
             <result column="employee_name" property="employeeName"/>
+            <result column="employee_type" property="employeeType"/>
             <result column="level" property="level"/>
             <result column="job_number" property="jobNumber"/>
         </collection>
@@ -20,11 +21,38 @@
 
     <resultMap id="DepartmentAndTypeEmployeesMap" extends="DepartmentMap"
                type="cn.felord.mybatis.entity.DepartmentAndTypeEmployees">
-        <discriminator javaType="int" column="employee_type">
-            <case value="1" resultType="cn.felord.mybatis.entity.RegularEmployee"/>
-        </discriminator>
+        <collection property="regularEmployees" ofType="cn.felord.mybatis.entity.RegularEmployee">
+            <discriminator javaType="int" column="employee_type">
+                <case value="1">
+                    <id column="employee_id" property="employeeId"/>
+                    <result column="employee_name" property="employeeName"/>
+                    <result column="employee_type" property="employeeType"/>
+                    <result column="level" property="level"/>
+                    <result column="job_number" property="jobNumber"/>
+                </case>
+            </discriminator>
+        </collection>
+        <collection property="temporaryEmployees" ofType="cn.felord.mybatis.entity.TemporaryEmployee">
+            <discriminator javaType="int" column="employee_type">
+                <case value="0">
+                    <id column="employee_id" property="employeeId"/>
+                    <result column="employee_name" property="employeeName"/>
+                    <result column="employee_type" property="employeeType"/>
+                    <result column="company_no" property="companyNo"/>
+                </case>
+            </discriminator>
+        </collection>
     </resultMap>
+
+
+
     <select id="findById" resultMap="DepartmentAndEmployeeListMap">
+        select *
+        from department a
+                 left join employee b on a.department_id = b.department_id
+        where a.department_id = #{departmentId}
+    </select>
+    <select id="findGroupById" resultMap="DepartmentAndTypeEmployeesMap">
         select *
         from department a
                  left join employee b on a.department_id = b.department_id

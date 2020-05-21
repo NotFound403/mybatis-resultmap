@@ -1,6 +1,7 @@
 package cn.felord.mybatis;
 
 import cn.felord.mybatis.entity.DepartmentAndEmployeeList;
+import cn.felord.mybatis.entity.DepartmentAndTypeEmployees;
 import cn.felord.mybatis.entity.Employee;
 import cn.felord.mybatis.entity.RegularEmployee;
 import cn.felord.mybatis.mapper.DepartmentMapper;
@@ -32,7 +33,9 @@ class MybatisResultmapApplicationTests {
     @Test
     void departmentTest() {
         DepartmentAndEmployeeList byId = departmentMapper.findById("1");
-
         System.out.println("byId = " + byId);
+
+        DepartmentAndTypeEmployees groupById = departmentMapper.findGroupById("1");
+        System.out.println("groupById = " + groupById);
     }
 }

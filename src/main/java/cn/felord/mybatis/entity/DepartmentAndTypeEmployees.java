@@ -1,37 +1,21 @@
 package cn.felord.mybatis.entity;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
 import java.util.List;
 
 /**
  * @author felord.cn
  * @since 15:33
  **/
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class DepartmentAndTypeEmployees extends Department {
     private static final long serialVersionUID = -2503893191396554581L;
     private List<RegularEmployee> regularEmployees;
     private List<TemporaryEmployee> temporaryEmployees;
 
-    public List<RegularEmployee> getRegularEmployees() {
-        return regularEmployees;
-    }
-
-    @Override
-    public String toString() {
-        return "DepartmentAndTypeEmployees{" +
-                "regularEmployees=" + regularEmployees +
-                ", temporaryEmployees=" + temporaryEmployees +
-                "} " + super.toString();
-    }
-
-    public void setRegularEmployees(List<RegularEmployee> regularEmployees) {
-        this.regularEmployees = regularEmployees;
-    }
-
-    public List<TemporaryEmployee> getTemporaryEmployees() {
-        return temporaryEmployees;
-    }
-
-    public void setTemporaryEmployees(List<TemporaryEmployee> temporaryEmployees) {
-        this.temporaryEmployees = temporaryEmployees;
-    }
 }

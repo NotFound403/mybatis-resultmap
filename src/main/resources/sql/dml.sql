@@ -6,6 +6,6 @@ values ('1', '技术部', 100),
 
 insert into employee values
                             ('1','张三','9527','1',null,7,1),
-                            ('2','李四',null,null,2001,null,0),
+                            ('2','李四',null,'2',2001,null,0),
                             ('3','王五','9528','1',null,6,1),
-                            ('4','赵六',null,null,2002,null,0);
+                            ('4','赵六',null,'1',2002,null,0);
